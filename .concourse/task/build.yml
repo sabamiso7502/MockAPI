@@ -7,4 +7,4 @@ image_resource:
 inputs:
   - name: api-repo
 run:
-  path: ls
+  path: api-repo/.concourse/script/build.sh

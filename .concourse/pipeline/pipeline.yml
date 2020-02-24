@@ -14,15 +14,4 @@ jobs:
       resource: api-repo
       trigger: true
     - task: build
-      # file: api-repo/.concourse/tasks/build.yml
-      config:
-        platform: linux
-        image_resource:
-          type: docker-image
-          source:
-            repository: mcr.microsoft.com/dotnet/core/sdk
-            tag: 3.1-buster
-        inputs:
-          - name: api-repo
-        run:
-          path: ls
+      file: api-repo/.concourse/task/build.yml
