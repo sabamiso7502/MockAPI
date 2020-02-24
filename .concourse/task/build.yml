@@ -9,4 +9,4 @@ inputs:
 run:
   path: api-repo/.concourse/script/build.sh
   args:
-    - ..
+    - api-repo/src/API

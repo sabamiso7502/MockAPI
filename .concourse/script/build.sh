@@ -1,4 +1,4 @@
 #!/bin/bash
-set
 cd $1
-ls
+dotnet restore
+dotnet build
