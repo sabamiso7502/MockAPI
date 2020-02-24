@@ -1,0 +1,19 @@
+resources:
+- name: api-repo
+  type: git
+  source:
+    uri: git@github.com:sabamiso7502/MockAPI.git
+    branch: master
+
+jobs:
+- name: rails-job-production
+  # rails-sampleレポジトリのproductionブランチに変更がある時のみ実行されるようにするためのタグ
+  # serial_groups: [ production ]
+  public: true
+  plan:
+    # resourceで定義した名前を指定し、コンテナ内でgitのソースを取得する
+    - get: api-repo
+      resource: api-repo
+      trigger: true
+    - task: build
+      file: pipelines-repo/rails-sample/tasks/build.yml
