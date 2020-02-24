@@ -2,13 +2,11 @@ resources:
 - name: api-repo
   type: git
   source:
-    uri: git@github.com:sabamiso7502/MockAPI.git
+    uri: https://github.com/sabamiso7502/MockAPI.git
     branch: master
 
 jobs:
-- name: rails-job-production
-  # rails-sampleレポジトリのproductionブランチに変更がある時のみ実行されるようにするためのタグ
-  # serial_groups: [ production ]
+- name: build
   public: true
   plan:
     # resourceで定義した名前を指定し、コンテナ内でgitのソースを取得する
@@ -16,4 +14,15 @@ jobs:
       resource: api-repo
       trigger: true
     - task: build
-      file: pipelines-repo/rails-sample/tasks/build.yml
+      # file: api-repo/.concourse/tasks/build.yml
+      config:
+        platform: linux
+        image_resource:
+          type: docker-image
+          source:
+            repository: mcr.microsoft.com/dotnet/core/sdk
+            tag: 3.1-buster
+        inputs:
+          - name: api-repo
+        run:
+          path: ls
